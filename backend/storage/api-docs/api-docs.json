@@ -1,0 +1,441 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API documentaion",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/": {},
+        "/api/brands": {
+            "get": {
+                "tags": [
+                    "Brand"
+                ],
+                "summary": "Список брендов",
+                "operationId": "11436a00851df91bf1f863c6fc50a48f",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "collection": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "Уникальный идентификатор бренда.",
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "title": {
+                                                                "description": "Название бренда.",
+                                                                "type": "string",
+                                                                "example": "Яблоко мое"
+                                                            },
+                                                            "alias": {
+                                                                "description": "Псевдоним бренда.",
+                                                                "type": "string",
+                                                                "example": "iabloko-moe"
+                                                            },
+                                                            "image": {
+                                                                "description": "Ссылка на изображение бренда. Может быть null.",
+                                                                "type": "string",
+                                                                "example": "/storage/products/image.jpg",
+                                                                "nullable": true
+                                                            },
+                                                            "index_show": {
+                                                                "description": "Признак отображения бренда на начальной странице.",
+                                                                "type": "boolean",
+                                                                "example": true
+                                                            },
+                                                            "created_at": {
+                                                                "description": "Дата и время создания записи.",
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2024-11-27T20:06:31.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "description": "Дата и время последнего обновления записи.",
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2024-11-27T20:06:31.000000Z"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Brand"
+                ],
+                "summary": "Создание бренда",
+                "operationId": "d228404eea7aa11ac775788f380b2014",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "description": "Название (макс. 255 символов)",
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "alias": {
+                                        "description": "Псевдоним (макс. 255 символов, уникальный)",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "nullable": true
+                                    },
+                                    "image": {
+                                        "description": "Изображение для загрузки",
+                                        "type": "string",
+                                        "format": "binary",
+                                        "nullable": true
+                                    },
+                                    "index_show": {
+                                        "description": "Показывать на главной странице",
+                                        "type": "boolean",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "description": "Уникальный идентификатор бренда.",
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "description": "Название бренда.",
+                                                    "type": "string",
+                                                    "example": "Apple"
+                                                },
+                                                "alias": {
+                                                    "description": "Псевдоним бренда.",
+                                                    "type": "string",
+                                                    "example": "apple"
+                                                },
+                                                "image": {
+                                                    "description": "Ссылка на изображение бренда. Может быть null.",
+                                                    "type": "string",
+                                                    "example": "/storage/products/image.jpg",
+                                                    "nullable": true
+                                                },
+                                                "index_show": {
+                                                    "description": "Признак отображения бренда на начальной странице.",
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "created_at": {
+                                                    "description": "Дата и время создания записи.",
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "description": "Дата и время последнего обновления записи.",
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/brands/{brand}": {
+            "get": {
+                "tags": [
+                    "Brand"
+                ],
+                "summary": "Единичный бренд (по id или alias)",
+                "operationId": "ccea644826c895b4c2d407ab953587f9",
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ с данными о бренде и связанных продуктах",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Яблоко мое"
+                                                },
+                                                "alias": {
+                                                    "type": "string",
+                                                    "example": "iabloko-moe"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "index_show": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-27T20:06:31.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-27T20:06:31.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "products": {
+                                            "properties": {
+                                                "collection": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "Продукт"
+                                                            },
+                                                            "alias": {
+                                                                "type": "string",
+                                                                "example": "produkt"
+                                                            },
+                                                            "properties": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "type": "integer",
+                                                                            "example": 1
+                                                                        },
+                                                                        "title": {
+                                                                            "type": "string",
+                                                                            "example": "Скорость"
+                                                                        },
+                                                                        "alias": {
+                                                                            "type": "string",
+                                                                            "example": "skorost"
+                                                                        },
+                                                                        "value": {
+                                                                            "type": "string",
+                                                                            "example": "200"
+                                                                        },
+                                                                        "data_type_id": {
+                                                                            "type": "integer",
+                                                                            "example": 4
+                                                                        },
+                                                                        "sort_order": {
+                                                                            "type": "integer",
+                                                                            "example": 0
+                                                                        },
+                                                                        "is_multiple": {
+                                                                            "type": "integer",
+                                                                            "example": 0
+                                                                        },
+                                                                        "is_selector": {
+                                                                            "type": "integer",
+                                                                            "example": 0
+                                                                        },
+                                                                        "show_in_characteristics": {
+                                                                            "type": "integer",
+                                                                            "example": 0
+                                                                        },
+                                                                        "show_in_filters": {
+                                                                            "type": "integer",
+                                                                            "example": 0
+                                                                        },
+                                                                        "created_at": {
+                                                                            "type": "string",
+                                                                            "format": "date-time",
+                                                                            "example": "2024-11-27T20:06:57.000000Z"
+                                                                        },
+                                                                        "updated_at": {
+                                                                            "type": "string",
+                                                                            "format": "date-time",
+                                                                            "example": "2024-11-27T20:06:57.000000Z"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                }
+                                                            },
+                                                            "images": {
+                                                                "properties": {
+                                                                    "collection": {
+                                                                        "type": "array",
+                                                                        "items": {
+                                                                            "properties": {
+                                                                                "id": {
+                                                                                    "type": "integer",
+                                                                                    "example": 13
+                                                                                },
+                                                                                "caption": {
+                                                                                    "type": "string",
+                                                                                    "example": "Картинка 1"
+                                                                                },
+                                                                                "file_name": {
+                                                                                    "type": "string",
+                                                                                    "example": "/storage/products/ucvH0OuZQFy8nHEGGDswkjKv0FcQwUThWyZGyx8A.jpg"
+                                                                                }
+                                                                            },
+                                                                            "type": "object"
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "documents": {
+                                                                "properties": {
+                                                                    "collection": {
+                                                                        "type": "array",
+                                                                        "items": {
+                                                                            "properties": {
+                                                                                "id": {
+                                                                                    "type": "integer",
+                                                                                    "example": 2
+                                                                                },
+                                                                                "caption": {
+                                                                                    "type": "string",
+                                                                                    "example": "Документ"
+                                                                                },
+                                                                                "file_name": {
+                                                                                    "type": "string",
+                                                                                    "example": "/storage/product_documents/HZ5UDZDfjmZEtxyjpORgJglB2tAA6T6JhYIWxFcX.txt"
+                                                                                }
+                                                                            },
+                                                                            "type": "object"
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "category_id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "brand_id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "nomenclature_id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "tags": {
+                                                                "type": "string",
+                                                                "example": null,
+                                                                "nullable": true
+                                                            },
+                                                            "preview_image": {
+                                                                "type": "string",
+                                                                "example": null,
+                                                                "nullable": true
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": null,
+                                                                "nullable": true
+                                                            },
+                                                            "access_level": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            },
+                                                            "seo_title": {
+                                                                "type": "string",
+                                                                "example": null,
+                                                                "nullable": true
+                                                            },
+                                                            "seo_description": {
+                                                                "type": "string",
+                                                                "example": null,
+                                                                "nullable": true
+                                                            },
+                                                            "is_active": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "gift": {
+                                                                "type": "string",
+                                                                "example": null,
+                                                                "nullable": true
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2024-11-27T20:07:45.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2024-11-27T20:07:45.000000Z"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Brand",
+            "description": "Brand"
+        }
+    ]
+}
